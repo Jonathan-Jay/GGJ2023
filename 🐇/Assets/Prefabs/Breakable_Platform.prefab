@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4893477887609395226}
+  - component: {fileID: 52386126192880698}
   m_Layer: 0
   m_Name: Breakable_Platform
   m_TagString: Untagged
@@ -117,6 +118,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &52386126192880698
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5234010264891785888}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 21.69, y: 10.8, z: 17.7}
+  m_Center: {x: -1.31, y: 14.4, z: 0.7}
 --- !u!1 &8652720740669709145
 GameObject:
   m_ObjectHideFlags: 0
