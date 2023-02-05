@@ -105,7 +105,7 @@ public class MainBnuuy : MonoBehaviour
 	static WaitForFixedUpdate wfu = new WaitForFixedUpdate();
 	IEnumerator Move() {
 		Vector2 velo;
-		while (move.inProgress) {
+		while (this != null && move.inProgress) {
 			if (!stunned) {
 				if (!grounded) {
 					velo = rb.velocity;

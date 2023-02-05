@@ -7,6 +7,7 @@ public class PauseHandler : MonoBehaviour
 {
 	public Canvas pauseScreen;
 	public PlayerInputManager players;
+	public SpawnHandler spawn;
 	List<PlayerInput> playerList = new List<PlayerInput>();
 	private void Awake() {
 		pauseScreen.gameObject.SetActive(false);
@@ -21,7 +22,8 @@ public class PauseHandler : MonoBehaviour
 
 		players.onPlayerLeft += player => {
 			playerList.Remove(player);
-			Debug.Log("Player Left");
+			if (players.playerCount == 0)
+				StartCoroutine(spawn.Reactivate());
 		};
 	}
 
@@ -29,9 +31,9 @@ public class PauseHandler : MonoBehaviour
 
 	void Pause(PlayerInput caller) {
 		pausingPlayer = caller;
-		players.DisableJoining();
 
 		pauseScreen.gameObject.SetActive(true);
+		Time.timeScale = 0f;
 
 		foreach (PlayerInput p in playerList) {
 			p.SwitchCurrentActionMap("UI");
@@ -40,10 +42,10 @@ public class PauseHandler : MonoBehaviour
 
 	void Unpause(PlayerInput caller) {
 		if (pausingPlayer != caller)	return;
-		players.EnableJoining();
 		pausingPlayer = null;
 
 		pauseScreen.gameObject.SetActive(false);
+		Time.timeScale = 1f;
 
 		foreach (PlayerInput p in playerList) {
 			p.SwitchCurrentActionMap("Player");

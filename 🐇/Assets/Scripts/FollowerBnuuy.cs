@@ -44,7 +44,7 @@ public class FollowerBnuuy : MonoBehaviour
 		else if (rb.velocity.y < -0.25f)	anim.SetInteger("yvelo", -1);
 		else								anim.SetInteger("yvelo", 0);
 
-		if (dead) return;
+		if (dead || bnuuy == null) return;
 
 		float dist = Vector2.Distance(transform.position, bnuuy.transform.position);
 		if (dist < closeDistance.x) {

@@ -34,4 +34,10 @@ public class SpawnHandler : MonoBehaviour
 			sprite.enabled = true;
 		}
 	}
+
+	public IEnumerator Reactivate() {
+		yield return new WaitForSeconds(1f);
+		manager.EnableJoining();
+		sprite.enabled = true;
+	}
 }

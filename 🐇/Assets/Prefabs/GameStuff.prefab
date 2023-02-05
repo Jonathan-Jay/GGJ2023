@@ -588,7 +588,7 @@ MonoBehaviour:
   distanceScaler: 0.75
   minWidth: 10
   speed: 10
-  fallback: {fileID: 0}
+  fallback: {fileID: 1495654196510714706}
   following: []
   colors:
   - {r: 1, g: 1, b: 1, a: 1}
@@ -2499,6 +2499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseScreen: {fileID: 1495654197402956400}
   players: {fileID: 1495654196510714705}
+  spawn: {fileID: 1495654196510714711}
 --- !u!1 &1495654196563987368
 GameObject:
   m_ObjectHideFlags: 0
@@ -4133,7 +4134,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7a4d78004e828664e8743adb3c63e268, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0

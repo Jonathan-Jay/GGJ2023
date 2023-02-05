@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
 	}
 
 	private void LateUpdate() {
-		if (following.Count <= 0) {
+		if (following.Count == 0 || playerCount == 0) {
 			if (fallback) {
 				transform.position = Vector3.MoveTowards(transform.position, fallback.position + offset, speed * 5f * Time.deltaTime);
 			}
