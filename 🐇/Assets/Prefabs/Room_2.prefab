@@ -406,7 +406,6 @@ GameObject:
   - component: {fileID: 559526770988362645}
   - component: {fileID: 3015081672154840092}
   - component: {fileID: 6381459018970982596}
-  - component: {fileID: 6082340869450817467}
   m_Layer: 0
   m_Name: rock.002
   m_TagString: Untagged
@@ -479,19 +478,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6082340869450817467
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5468235011374173441}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.19406952, y: 0.33507207, z: 0.13181514}
-  m_Center: {x: -0.0034425678, y: -0.01363261, z: 0.027460719}
 --- !u!1 &6651631882140835097
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,6 +487,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2433225772851258828}
+  - component: {fileID: 8025855551532321034}
   m_Layer: 0
   m_Name: Colliders
   m_TagString: Untagged
@@ -532,6 +519,32 @@ Transform:
   m_Father: {fileID: 7156980907882179032}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &8025855551532321034
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6651631882140835097}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -34.7762, y: -5.663877}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 31.87384, y: 11.872247}
+  m_EdgeRadius: 0
 --- !u!1 &6935340237421573531
 GameObject:
   m_ObjectHideFlags: 0

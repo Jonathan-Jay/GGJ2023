@@ -207,9 +207,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bnuuy: {fileID: 0}
-  jumpStrength: 7.5
+  jumpStrength: 10
   boredJumpStrength: 2.5
   boredomTime: {x: 5, y: 2}
   closeDistance: {x: 3, y: 10}
   randjumpScale: {x: 0.75, y: 1.25}
-  doubleJumpTime: 1.5

@@ -46,7 +46,7 @@ public class MainBnuuy : MonoBehaviour
 
 		jump.started += ctx => {
 			if (grounded && !stunned) {
-				Jump(input.y * 0.25f + 0.75f);
+				Jump(input.y * 0.5f + 1f);
 			}
 		};
 	}
