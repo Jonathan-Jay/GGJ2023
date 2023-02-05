@@ -17,14 +17,32 @@ public class PublicBunAudioManager : MonoBehaviour
 	}
 
 	static public void PlayJump() {
-		instance.jumpQueue.Play();
+		instance?.jumpQueue.Play();
 	}
 
 	static public void PlayLand() {
-		instance.landQueue.Play();
+		instance?.landQueue.Play();
 	}
 
 	static public void PlayHit() {
-		instance.hitQueue.Play();
+		instance?.hitQueue.Play();
+	}
+
+	//out of 100
+	static public void PlayJump(int chance) {
+		if (Random.Range(0, 100) < chance)
+			instance?.jumpQueue.Play();
+	}
+
+	//out of 100
+	static public void PlayLand(int chance) {
+		if (Random.Range(0, 100) < chance)
+			instance?.landQueue.Play();
+	}
+
+	//out of 100
+	static public void PlayHit(int chance) {
+		if (Random.Range(0, 100) < chance)
+			instance?.hitQueue.Play();
 	}
 }

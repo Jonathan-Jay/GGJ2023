@@ -68,6 +68,8 @@ public class MainBnuuy : MonoBehaviour
 
 		for (int i = other.contactCount - 1; i >= 0; --i) {
 			if (other.GetContact(i).normal.y > 0.5f) {
+				if (!grounded)
+					PublicBunAudioManager.PlayLand();
 				grounded = true;
 				return;
 			}
@@ -79,6 +81,7 @@ public class MainBnuuy : MonoBehaviour
 	}
 
 	void Jump(float scaler) {
+		PublicBunAudioManager.PlayJump();
 		rb.AddForce(Vector2.up * scaler * jumpStrength, ForceMode2D.Impulse);
 	}
 
@@ -87,12 +90,12 @@ public class MainBnuuy : MonoBehaviour
 		Vector2 direction = transform.position - hitPoint;
 
 		rb.velocity = direction.normalized * jumpStrength * 1.5f;
-		if (!stunned) {
+		if (!stunned)
 			StartCoroutine(UnStun(stunTime));
-		}
 	}
 
 	IEnumerator UnStun(float waitTime) {
+		PublicBunAudioManager.PlayHit();
 		stunned = true;
 		yield return new WaitForSeconds(waitTime);
 		stunned = false;

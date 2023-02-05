@@ -90,6 +90,8 @@ public class FollowerBnuuy : MonoBehaviour
 	}
 
 	private void OnCollisionStay2D(Collision2D other) {
+		if (!grounded)
+			PublicBunAudioManager.PlayLand(25);
 		grounded = true;
 		touchBun = other.gameObject.layer == 8;
 	}
@@ -100,6 +102,9 @@ public class FollowerBnuuy : MonoBehaviour
 
 	public void Die() {
 		if (dead)	return;
+
+		PublicBunAudioManager.PlayHit(50);
+
 		dead = true;
 		//set yourself to background
 		gameObject.layer = 10;
@@ -124,6 +129,8 @@ public class FollowerBnuuy : MonoBehaviour
 	}
 
 	public void Jump(float jump, float distance) {
+		PublicBunAudioManager.PlayJump(50);
+
 		//math the jump angle
 		float gravity = Physics2D.gravity.y * rb.gravityScale;
 		float height = transform.position.y - bnuuy.transform.position.y;
