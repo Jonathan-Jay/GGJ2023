@@ -6,10 +6,12 @@ using UnityEngine.InputSystem;
 public class SpawnHandler : MonoBehaviour
 {
 	PlayerInputManager manager;
+	SpriteRenderer sprite;
 	int counter = 0;
 	int maxCounter = 0;
 	private void Awake() {
 		manager = GetComponent<PlayerInputManager>();
+		sprite = GetComponent<SpriteRenderer>();
 	}
 
 	private void OnTriggerExit2D(Collider2D other) {
@@ -19,6 +21,7 @@ public class SpawnHandler : MonoBehaviour
 
 		if (counter == 0) {
 			manager.DisableJoining();
+			sprite.enabled = false;
 		}
 	}
 
@@ -28,6 +31,7 @@ public class SpawnHandler : MonoBehaviour
 		
 		if (counter == maxCounter) {
 			manager.EnableJoining();
+			sprite.enabled = true;
 		}
 	}
 }

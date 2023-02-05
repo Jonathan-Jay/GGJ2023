@@ -65,6 +65,7 @@ public class FollowerBnuuy : MonoBehaviour
 					}
 				}
 				else {
+					Jump(boredJumpStrength, dist);
 					boredomTimer = Random.Range(boredomTime.x, boredomTime.y);
 				}
 			}
