@@ -252,6 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particles: {fileID: 1408636232247221491}
+  sounds: {fileID: 144250305107675612}
 --- !u!1 &8890576501680385617
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +371,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1883ae465b808ae42b1e6e612a08c274, type: 3}
+--- !u!114 &144250305107675612 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8040553620522572474, guid: 1883ae465b808ae42b1e6e612a08c274, type: 3}
+  m_PrefabInstance: {fileID: 7896413276309148518}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0676c5290fb4654d8466ed51b0ecbf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &1408636232247221491 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 9086514970094653333, guid: 1883ae465b808ae42b1e6e612a08c274, type: 3}
