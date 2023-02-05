@@ -10,12 +10,9 @@ public class FollowerBnuuy : MonoBehaviour
 	public Vector2 boredomTime = new Vector2(5f, 2f);
 	public Vector2 closeDistance = new Vector2(2f, 5f);
 	public Vector2 randjumpScale = new Vector2(0.75f, 1.25f);
-	public float doubleJumpTime = 1.5f;
 
 	float boredomTimer = -1f;
-	float doubleJumpTimer = 5f;
 	bool grounded = false;
-	bool touchBun = false;
 	bool dead = false;
 	Rigidbody2D rb;
 	Animator anim;
@@ -34,16 +31,18 @@ public class FollowerBnuuy : MonoBehaviour
 		GetComponent<SpriteRenderer>().color = bnuuy.GetComponent<SpriteRenderer>().color;
 	}
 
+	private void Update() {
+		if (bnuuy == null && !dead) {
+			Die();
+		}
+	}
+
 	private void FixedUpdate() {
 		if (rb.velocity.x > 0)	sprite.flipX = false;
 		if (rb.velocity.x < 0)	sprite.flipX = true;
 		if (rb.velocity.y > 0.25f)			anim.SetInteger("yvelo", 1);
 		else if (rb.velocity.y < -0.25f)	anim.SetInteger("yvelo", -1);
 		else								anim.SetInteger("yvelo", 0);
-
-		if (doubleJumpTimer > 0f) {
-			doubleJumpTimer -= Time.deltaTime;
-		}
 
 		if (dead) return;
 
@@ -56,44 +55,24 @@ public class FollowerBnuuy : MonoBehaviour
 
 			boredomTimer -= Time.deltaTime;
 			if (boredomTimer <= 0f) {
-
-				if (touchBun) {
-					if (doubleJumpTimer <= 0f) {
-						Jump(boredJumpStrength, dist);
-						doubleJumpTimer = doubleJumpTime;
-						boredomTimer = Random.Range(boredomTime.x, boredomTime.y);
-					}
-				}
-				else {
-					Jump(boredJumpStrength, dist);
-					boredomTimer = Random.Range(boredomTime.x, boredomTime.y);
-				}
+				Jump(boredJumpStrength, dist);
+				boredomTimer = Random.Range(boredomTime.x, boredomTime.y);
 			}
 			return;
 		}
 		boredomTimer = -5f;
 
 		if (grounded) {
-			if (touchBun) {
-				if (doubleJumpTimer <= 0f) {
-					//hop towards player
-					Jump(Mathf.Lerp(boredJumpStrength, jumpStrength, (dist - closeDistance.x) / (closeDistance.y - closeDistance.x))
-						* Random.Range(randjumpScale.x, randjumpScale.y), dist);
-					doubleJumpTimer = doubleJumpTime;
-				}
-			}
-			else {
-				Jump(Mathf.Lerp(boredJumpStrength, jumpStrength, (dist - closeDistance.x) / (closeDistance.y - closeDistance.x))
-					* Random.Range(randjumpScale.x, randjumpScale.y), dist);
-			}
+			Jump(Mathf.Lerp(boredJumpStrength, jumpStrength, (dist - closeDistance.x) / (closeDistance.y - closeDistance.x))
+				* Random.Range(randjumpScale.x, randjumpScale.y), dist);
 		}
 	}
 
 	private void OnCollisionStay2D(Collision2D other) {
 		if (!grounded)
-			PublicBunAudioManager.PlayLand(25);
-		grounded = true;
-		touchBun = other.gameObject.layer == 8;
+			PublicBunAudioManager.PlayLand(5);
+
+		grounded = grounded || other.GetContact(0).normal.y > 0.75f;
 	}
 
 	private void OnCollisionExit2D(Collision2D other) {

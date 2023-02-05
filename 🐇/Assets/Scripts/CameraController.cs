@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
 	[SerializeField]	float distanceScaler = 2f;
 	[SerializeField]	float minWidth = 10f;
 	[SerializeField]	float speed = 10f;
+	public Transform fallback;
 	public List<Transform> following = new List<Transform>();
 	public List<Color> colors = new List<Color>();
 	static public List<Color> colours = new List<Color>();
@@ -20,7 +21,13 @@ public class CameraController : MonoBehaviour
 	}
 
 	private void LateUpdate() {
-		if (following.Count <= 0)	return;
+		if (following.Count <= 0) {
+			if (fallback) {
+				transform.position = Vector3.MoveTowards(transform.position, fallback.position + offset, speed * 5f * Time.deltaTime);
+			}
+
+			return;
+		}
 
 		float minx = float.PositiveInfinity, maxx = float.NegativeInfinity;
 		Vector3 sum = Vector3.zero;

@@ -39,6 +39,7 @@ public class MainBnuuy : MonoBehaviour
 		move.started += ctx => {
 			StartCoroutine(Move());
 		};
+
 		move.performed += ctx => {
 			input = ctx.ReadValue<Vector2>();
 		};

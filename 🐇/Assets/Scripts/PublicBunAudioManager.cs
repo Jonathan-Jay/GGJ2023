@@ -8,6 +8,9 @@ public class PublicBunAudioManager : MonoBehaviour
 	[SerializeField] AudioQueue jumpQueue;
 	[SerializeField] AudioQueue landQueue;
 	[SerializeField] AudioQueue hitQueue;
+	[SerializeField] AudioQueue jumpQueueQuiet;
+	[SerializeField] AudioQueue landQueueQuiet;
+	[SerializeField] AudioQueue hitQueueQuiet;
 	private void Start() {
 		if (instance != null) {
 			Destroy(instance);
@@ -31,18 +34,18 @@ public class PublicBunAudioManager : MonoBehaviour
 	//out of 100
 	static public void PlayJump(int chance) {
 		if (Random.Range(0, 100) < chance)
-			instance?.jumpQueue.Play();
+			instance?.jumpQueueQuiet.Play();
 	}
 
 	//out of 100
 	static public void PlayLand(int chance) {
 		if (Random.Range(0, 100) < chance)
-			instance?.landQueue.Play();
+			instance?.landQueueQuiet.Play();
 	}
 
 	//out of 100
 	static public void PlayHit(int chance) {
 		if (Random.Range(0, 100) < chance)
-			instance?.hitQueue.Play();
+			instance?.hitQueueQuiet.Play();
 	}
 }
