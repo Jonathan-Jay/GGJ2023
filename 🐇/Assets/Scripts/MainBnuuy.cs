@@ -13,17 +13,28 @@ public class MainBnuuy : MonoBehaviour
 	Rigidbody2D rb;
 	InputAction move;
 	InputAction jump;
-	InputAction call;
 
-	Vector2 input = Vector2.zero;
 	bool grounded = false;
+	bool stunned = false;
+	Vector2 input = Vector2.zero;
+	Animator anim;
+	SpriteRenderer sprite;
 	private void Awake() {
+		Camera.main.GetComponent<CameraController>().following.Add(transform);
+		++Camera.main.GetComponent<CameraController>().playerCount;
+
 		inputs = GetComponent<PlayerInput>();
 		rb = GetComponent<Rigidbody2D>();
+		anim = GetComponent<Animator>();
+		sprite = GetComponent<SpriteRenderer>();
+
+		if (inputs.playerIndex >= CameraController.colours.Count)
+			sprite.color = CameraController.colours[0];
+		else
+			sprite.color = CameraController.colours[inputs.playerIndex];
 
 		move = inputs.currentActionMap.asset.FindAction("Move");
 		jump = inputs.currentActionMap.asset.FindAction("Jump");
-		call = inputs.currentActionMap.asset.FindAction("Call");
 
 		move.started += ctx => {
 			StartCoroutine(Move());
@@ -33,10 +44,23 @@ public class MainBnuuy : MonoBehaviour
 		};
 
 		jump.started += ctx => {
-			if (grounded) {
+			if (grounded && !stunned) {
 				Jump(input.y * 0.25f + 0.75f);
 			}
 		};
+	}
+
+	private void OnDestroy() {
+		if (Camera.main)
+			--Camera.main.GetComponent<CameraController>().playerCount;
+	}
+
+	private void FixedUpdate() {
+		if (rb.velocity.x > 0)	sprite.flipX = false;
+		if (rb.velocity.x < 0)	sprite.flipX = true;
+		if (rb.velocity.y > 0.25f)			anim.SetInteger("yvelo", 1);
+		else if (rb.velocity.y < -0.25f)	anim.SetInteger("yvelo", -1);
+		else								anim.SetInteger("yvelo", 0);
 	}
 
 	private void OnCollisionStay2D(Collision2D other) {
@@ -58,18 +82,36 @@ public class MainBnuuy : MonoBehaviour
 		rb.AddForce(Vector2.up * scaler * jumpStrength, ForceMode2D.Impulse);
 	}
 
+	public void Hit(Vector3 hitPoint, float stunTime) {
+		//calculate direction
+		Vector2 direction = transform.position - hitPoint;
+
+		rb.velocity = direction.normalized * jumpStrength * 1.5f;
+		if (!stunned) {
+			StartCoroutine(UnStun(stunTime));
+		}
+	}
+
+	IEnumerator UnStun(float waitTime) {
+		stunned = true;
+		yield return new WaitForSeconds(waitTime);
+		stunned = false;
+	}
+
 	static WaitForFixedUpdate wfu = new WaitForFixedUpdate();
 	IEnumerator Move() {
 		Vector2 velo;
 		while (move.inProgress) {
-			if (grounded) {
-				if (input.y == 0f)
-					Jump(moveJumpScaler);
-			}
-			else {
-				velo = rb.velocity;
-				velo.x = input.x * speed;
-				rb.velocity = velo;
+			if (!stunned) {
+				if (!grounded) {
+					velo = rb.velocity;
+					velo.x = input.x * speed;
+					rb.velocity = velo;
+				}
+				else {
+					if (Mathf.Abs(input.y) < 0.5f)
+						Jump(moveJumpScaler);
+				}
 			}
 			yield return wfu;
 		}

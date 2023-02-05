@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4614567355816978061}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46,8 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bnuuy: {fileID: 1888770879696030611}
   prefab: {fileID: 8065891625978905854, guid: 031445a3901a3db459a36e94291efcb4, type: 3}
-  startCount: 100
-  rande: {x: -2.5, y: 2.5}
+  cam: {fileID: 0}
+  startCount: 200
+  rande: {x: -1.5, y: 1.5}
 --- !u!1 &8863056450694113043
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,13 +59,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5142804668416885705}
   - component: {fileID: 2844227241589059992}
+  - component: {fileID: 484220811597444995}
   - component: {fileID: 7765764093681628214}
   - component: {fileID: 555822233486571391}
   - component: {fileID: 1888770879696030611}
   - component: {fileID: 273881153533912709}
   m_Layer: 7
   m_Name: BeegBnuuy
-  m_TagString: Untagged
+  m_TagString: Bnuuy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +128,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: db3213143d43f1a4b86b218cabb86a55, type: 3}
+  m_Sprite: {fileID: -972655728, guid: 565dda99aca3c6d43b2cb6441b220f99, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -137,6 +139,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &484220811597444995
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8863056450694113043}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8a743adec73a72647917a1e9bd55d504, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!58 &7765764093681628214
 CircleCollider2D:
   m_ObjectHideFlags: 0

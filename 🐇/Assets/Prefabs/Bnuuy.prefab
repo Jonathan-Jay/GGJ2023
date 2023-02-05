@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8232881299422686386}
   m_Layer: 9
   m_Name: InterCollider
-  m_TagString: Bnuuy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,7 +47,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.2
 --- !u!1 &6174109293307606152
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,12 +58,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6174109293307606156}
   - component: {fileID: 6174109293307606159}
+  - component: {fileID: 1770524669966434091}
   - component: {fileID: 6174109293307606158}
   - component: {fileID: 6174109293307606153}
   - component: {fileID: 8065891625978905854}
   m_Layer: 8
   m_Name: Bnuuy
-  m_TagString: Bnuuy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,7 +126,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: aeac216507652804abaeade83e5f7fb1, type: 3}
+  m_Sprite: {fileID: -972655728, guid: 565dda99aca3c6d43b2cb6441b220f99, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -136,6 +137,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1770524669966434091
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6174109293307606152}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8a743adec73a72647917a1e9bd55d504, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!58 &6174109293307606158
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -189,5 +210,6 @@ MonoBehaviour:
   jumpStrength: 7.5
   boredJumpStrength: 2.5
   boredomTime: {x: 5, y: 2}
-  closeDistance: {x: 2, y: 10}
+  closeDistance: {x: 3, y: 10}
   randjumpScale: {x: 0.75, y: 1.25}
+  doubleJumpTime: 1.5

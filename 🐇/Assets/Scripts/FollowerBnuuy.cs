@@ -10,14 +10,20 @@ public class FollowerBnuuy : MonoBehaviour
 	public Vector2 boredomTime = new Vector2(5f, 2f);
 	public Vector2 closeDistance = new Vector2(2f, 5f);
 	public Vector2 randjumpScale = new Vector2(0.75f, 1.25f);
+	public float doubleJumpTime = 1.5f;
 
 	float boredomTimer = -1f;
+	float doubleJumpTimer = 5f;
 	bool grounded = false;
+	bool touchBun = false;
 	bool dead = false;
 	Rigidbody2D rb;
-
+	Animator anim;
+	SpriteRenderer sprite;
 	private void Awake() {
 		rb = GetComponent<Rigidbody2D>();
+		anim = GetComponent<Animator>();
+		sprite = GetComponent<SpriteRenderer>();
 	}
 
 	private void Start() {
@@ -29,34 +35,62 @@ public class FollowerBnuuy : MonoBehaviour
 	}
 
 	private void FixedUpdate() {
+		if (rb.velocity.x > 0)	sprite.flipX = false;
+		if (rb.velocity.x < 0)	sprite.flipX = true;
+		if (rb.velocity.y > 0.25f)			anim.SetInteger("yvelo", 1);
+		else if (rb.velocity.y < -0.25f)	anim.SetInteger("yvelo", -1);
+		else								anim.SetInteger("yvelo", 0);
+
+		if (doubleJumpTimer > 0f) {
+			doubleJumpTimer -= Time.deltaTime;
+		}
+
 		if (dead) return;
 
 		float dist = Vector2.Distance(transform.position, bnuuy.transform.position);
 		if (dist < closeDistance.x) {
 			//use boredom timer, and set if not started
-			if (boredomTimer <= -1f) {
+			if (boredomTimer <= -5f) {
 				boredomTimer = Random.Range(boredomTime.x, boredomTime.y);
 			}
 
 			boredomTimer -= Time.deltaTime;
-			if (boredomTimer <= 0) {
-				boredomTimer = Random.Range(boredomTime.x, boredomTime.y);
+			if (boredomTimer <= 0f) {
 
-				Jump(boredJumpStrength, dist);
+				if (touchBun) {
+					if (doubleJumpTimer <= 0f) {
+						Jump(boredJumpStrength, dist);
+						doubleJumpTimer = doubleJumpTime;
+						boredomTimer = Random.Range(boredomTime.x, boredomTime.y);
+					}
+				}
+				else {
+					boredomTimer = Random.Range(boredomTime.x, boredomTime.y);
+				}
 			}
 			return;
 		}
-		boredomTimer = -1;
+		boredomTimer = -5f;
 
 		if (grounded) {
-			//hop towards player
-			Jump(Mathf.Lerp(boredJumpStrength, jumpStrength, (dist - closeDistance.x) / (closeDistance.y - closeDistance.x))
-				* Random.Range(randjumpScale.x, randjumpScale.y), dist);
+			if (touchBun) {
+				if (doubleJumpTimer <= 0f) {
+					//hop towards player
+					Jump(Mathf.Lerp(boredJumpStrength, jumpStrength, (dist - closeDistance.x) / (closeDistance.y - closeDistance.x))
+						* Random.Range(randjumpScale.x, randjumpScale.y), dist);
+					doubleJumpTimer = doubleJumpTime;
+				}
+			}
+			else {
+				Jump(Mathf.Lerp(boredJumpStrength, jumpStrength, (dist - closeDistance.x) / (closeDistance.y - closeDistance.x))
+					* Random.Range(randjumpScale.x, randjumpScale.y), dist);
+			}
 		}
 	}
 
 	private void OnCollisionStay2D(Collision2D other) {
-		grounded = grounded || other.gameObject.layer != 8;
+		grounded = true;
+		touchBun = other.gameObject.layer == 8;
 	}
 
 	private void OnCollisionExit2D(Collision2D other) {
@@ -64,8 +98,17 @@ public class FollowerBnuuy : MonoBehaviour
 	}
 
 	public void Die() {
+		if (dead)	return;
 		dead = true;
-		Destroy(gameObject);
+		//set yourself to background
+		gameObject.layer = 10;
+		transform.GetChild(0).gameObject.layer = 10;
+
+		//do some funny stuff
+		rb.gravityScale = 1f;
+		rb.velocity = Vector2.up * jumpStrength * 2f + Vector2.right * Random.Range(-boredJumpStrength, boredJumpStrength);
+
+		Destroy(gameObject, 5f);
 	}
 
 	void AutoJump(float jump) {
