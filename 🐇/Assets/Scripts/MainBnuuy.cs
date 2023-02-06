@@ -14,7 +14,8 @@ public class MainBnuuy : MonoBehaviour
 	InputAction move;
 	InputAction jump;
 
-	bool grounded = false;
+	[HideInInspector]
+	public bool grounded = false;
 	bool stunned = false;
 	Vector2 input = Vector2.zero;
 	Animator anim;

@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1495654195555739940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: -5}
+  m_LocalPosition: {x: 0, y: -0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46,9 +46,9 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9521097, b: 0.4188679, a: 1}
   m_Intensity: 300
-  m_Range: 100
-  m_SpotAngle: 60
-  m_InnerSpotAngle: 40
+  m_Range: 200
+  m_SpotAngle: 179
+  m_InnerSpotAngle: 20
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1
@@ -587,8 +587,10 @@ MonoBehaviour:
   offset: {x: 0, y: 2, z: -10}
   distanceScaler: 0.75
   minWidth: 10
+  maxWidth: 35
   speed: 10
   fallback: {fileID: 1495654196510714706}
+  light: {fileID: 1495654195555739963}
   following: []
   colors:
   - {r: 1, g: 1, b: 1, a: 1}
@@ -4106,7 +4108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

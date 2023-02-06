@@ -5,11 +5,13 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 	[SerializeField]	Vector3 offset;
-	[SerializeField]	float distanceScaler = 2f;
+	[SerializeField]	float distanceScalerx = 0.75f;
+						float distanceScalery;
 	[SerializeField]	float minWidth = 10f;
+	[SerializeField]	float maxWidth = 100f;
 	[SerializeField]	float speed = 10f;
 	public Transform fallback;
-	public Transform light;
+	public new Transform light;
 	public List<Transform> following = new List<Transform>();
 	public List<Color> colors = new List<Color>();
 	static public List<Color> colours = new List<Color>();
@@ -19,19 +21,21 @@ public class CameraController : MonoBehaviour
 
 	private void Awake() {
 		colours = colors;
+		distanceScalery = distanceScalerx * (float)Screen.width / (float)Screen.height;
 	}
 
 	private void LateUpdate() {
 		if (following.Count == 0 || playerCount == 0) {
 			if (fallback) {
 				transform.position = Vector3.MoveTowards(transform.position, fallback.position + offset, speed * 5f * Time.deltaTime);
-				light.position = Vector3.MoveTowards(light.position, fallback.position + Vector3.back * offset.z, speed * 5f * Time.deltaTime);
+				light.position = Vector3.MoveTowards(light.position, fallback.position + Vector3.back * minWidth, speed * 5f * Time.deltaTime);
 			}
 
 			return;
 		}
 
 		float minx = float.PositiveInfinity, maxx = float.NegativeInfinity;
+		float miny = float.PositiveInfinity, maxy = float.NegativeInfinity;
 		Vector3 sum = Vector3.zero;
 		for (int i = 0; i < following.Count;) {
 			if (following[i] == null || following[i].gameObject.layer == 10) {
@@ -39,15 +43,19 @@ public class CameraController : MonoBehaviour
 				continue;
 			}
 			if (!following[i].GetComponent<MainBnuuy>()) {
-				sum += following[i].position / (float)playerCount;
+				sum += following[i].position;
 			}
 			else { 
-				sum += following[i].position * (following.Count * 0.5f + 1f);
+				sum += following[i].position * following.Count;
 			}
 			if (following[i].position.x > maxx)
 				maxx = following[i].position.x;
 			if (following[i].position.x < minx)
 				minx = following[i].position.x;
+			if (following[i].position.y > maxy)
+				maxy = following[i].position.y;
+			if (following[i].position.y < miny)
+				miny = following[i].position.y;
 			++i;
 		}
 
@@ -55,12 +63,12 @@ public class CameraController : MonoBehaviour
 		if (following.Count <= 0) return;
 
 		//get average
-		sum /= following.Count * 1.5f;
+		sum /= following.Count * (1f + playerCount) - playerCount;
 
 		//figure out distance ratio
-		offset.z = -Mathf.Max(minWidth, (maxx - minx) * distanceScaler);
+		offset.z = -Mathf.Clamp(Mathf.Max((maxx - minx) * distanceScalerx, (maxy - miny) * distanceScalery), minWidth, maxWidth);
 
 		transform.position = Vector3.MoveTowards(transform.position, sum + offset, speed * Time.deltaTime);
-		light.position = Vector3.MoveTowards(light.position, sum + Vector3.back * offset.z, speed * Time.deltaTime);
+		light.position = Vector3.MoveTowards(light.position, sum + Vector3.back * minWidth, speed * Time.deltaTime);
 	}
 }

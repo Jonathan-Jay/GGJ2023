@@ -62,7 +62,7 @@ public class FollowerBnuuy : MonoBehaviour
 		}
 		boredomTimer = -5f;
 
-		if (grounded) {
+		if (grounded && bnuuy.grounded) {
 			Jump(Mathf.Lerp(boredJumpStrength, jumpStrength, (dist - closeDistance.x) / (closeDistance.y - closeDistance.x))
 				* Random.Range(randjumpScale.x, randjumpScale.y), dist);
 		}
